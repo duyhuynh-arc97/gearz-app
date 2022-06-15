@@ -93,31 +93,42 @@ class _CartScreenState extends State<CartScreen> {
                   children: [
                     SlidableAction(
                       onPressed: (context) {
-                        _cartController
-                            .removeFromCart(
-                                userId: _userController.user.value.id,
-                                productId:
-                                    _cartController.cartItems[index].item.id)
-                            .then((value) {
-                          if (value == "successful") {
-                            Get.snackbar(
-                              "Product was removed!",
-                              "You just removed a product. Double check in Your cart.",
-                              dismissDirection: DismissDirection.horizontal,
-                              colorText: Colors.white,
-                              snackStyle: SnackStyle.FLOATING,
-                              barBlur: 30,
-                              backgroundColor: Colors.black45,
-                              isDismissible: true,
-                              duration: Duration(seconds: 3),
-                            );
-                            setState(() {
-                              _cartController.cartItems.removeAt(index);
+                        openCustomizedAlertDialog2(
+                            context: context,
+                            title: "Remove product!",
+                            mainText: "Are you sure that you want to ",
+                            additionalText: "this product from your cart?",
+                            iconName: "error.png",
+                            importantText: "remove ",
+                            okAction: () {
+                              _cartController
+                                  .removeFromCart(
+                                      userId: _userController.user.value.id,
+                                      productId: _cartController
+                                          .cartItems[index].item.id)
+                                  .then((value) {
+                                if (value == "successful") {
+                                  Get.back();
+                                  Get.snackbar(
+                                    "Product was removed!",
+                                    "You just removed a product. Double check in Your cart.",
+                                    dismissDirection:
+                                        DismissDirection.horizontal,
+                                    colorText: Colors.white,
+                                    snackStyle: SnackStyle.FLOATING,
+                                    barBlur: 30,
+                                    backgroundColor: Colors.black45,
+                                    isDismissible: true,
+                                    duration: Duration(seconds: 3),
+                                  );
+                                  setState(() {
+                                    _cartController.cartItems.removeAt(index);
+                                  });
+                                } else {
+                                  print("nah");
+                                }
+                              });
                             });
-                          } else {
-                            print("nah");
-                          }
-                        });
                       },
                       backgroundColor: Colors.red.shade400,
                       foregroundColor: Colors.white,

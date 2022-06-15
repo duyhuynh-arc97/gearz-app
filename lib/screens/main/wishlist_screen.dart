@@ -89,31 +89,42 @@ class _WishlistScreenState extends State<WishlistScreen> {
                 children: [
                   SlidableAction(
                     onPressed: (context) {
-                      _wishlistController
-                          .removeFromWishlist(
-                              userId: _userController.user.value.id,
-                              productId: _wishlistController
-                                  .wishlistItems[index].item.id)
-                          .then((value) {
-                        if (value == "successful") {
-                          Get.snackbar(
-                            "Disliked!",
-                            "You've just disliked  product. Double check in Your wishlist.",
-                            dismissDirection: DismissDirection.horizontal,
-                            colorText: Colors.white,
-                            snackStyle: SnackStyle.FLOATING,
-                            barBlur: 30,
-                            backgroundColor: Colors.black54,
-                            isDismissible: true,
-                            duration: Duration(seconds: 3),
-                          );
-                          setState(() {
-                            _wishlistController.wishlistItems.removeAt(index);
+                      openCustomizedAlertDialog2(
+                          context: context,
+                          title: "Dislike product!",
+                          mainText: "Are you sure that you want to ",
+                          additionalText: "this product from your wishlist?",
+                          iconName: "error.png",
+                          importantText: "remove ",
+                          okAction: () {
+                            _wishlistController
+                                .removeFromWishlist(
+                                    userId: _userController.user.value.id,
+                                    productId: _wishlistController
+                                        .wishlistItems[index].item.id)
+                                .then((value) {
+                              if (value == "successful") {
+                                Get.back();
+                                Get.snackbar(
+                                  "Disliked!",
+                                  "You've just disliked  product. Double check in Your wishlist.",
+                                  dismissDirection: DismissDirection.horizontal,
+                                  colorText: Colors.white,
+                                  snackStyle: SnackStyle.FLOATING,
+                                  barBlur: 30,
+                                  backgroundColor: Colors.black54,
+                                  isDismissible: true,
+                                  duration: Duration(seconds: 3),
+                                );
+                                setState(() {
+                                  _wishlistController.wishlistItems
+                                      .removeAt(index);
+                                });
+                              } else {
+                                print("nah");
+                              }
+                            });
                           });
-                        } else {
-                          print("nah");
-                        }
-                      });
                     },
                     backgroundColor: Colors.red.shade400,
                     foregroundColor: Colors.white,

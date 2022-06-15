@@ -392,44 +392,66 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                         SlidableAction(
                                           onPressed: (context) {
-                                            _contactController
-                                                .removeContact(
-                                                    userId: _userController
-                                                        .user.value.id,
-                                                    name: _contactController
-                                                        .contactList[index]
-                                                        .name)
-                                                .then((value) => {
-                                                      if (value == "successful")
-                                                        {
-                                                          Get.snackbar(
-                                                            "Removed!",
-                                                            "You've just remove a contact. Double check in Your profile.",
-                                                            dismissDirection:
-                                                                DismissDirection
-                                                                    .horizontal,
-                                                            colorText:
-                                                                Colors.white,
-                                                            snackStyle:
-                                                                SnackStyle
-                                                                    .FLOATING,
-                                                            barBlur: 30,
-                                                            backgroundColor:
-                                                                Colors.black45,
-                                                            isDismissible: true,
-                                                            duration: Duration(
-                                                                seconds: 3),
-                                                          ),
-                                                          setState(() {
-                                                            _contactController
-                                                                .contactList
-                                                                .removeAt(
-                                                                    index);
-                                                          }),
-                                                        }
-                                                      else
-                                                        {print("nah")}
-                                                    });
+                                            openCustomizedAlertDialog2(
+                                                context: context,
+                                                title: "Remove contact!",
+                                                mainText:
+                                                    "Are you sure that you want to ",
+                                                additionalText: "this contact?",
+                                                iconName: "error.png",
+                                                importantText: "remove ",
+                                                okAction: () {
+                                                  _contactController
+                                                      .removeContact(
+                                                          userId:
+                                                              _userController
+                                                                  .user
+                                                                  .value
+                                                                  .id,
+                                                          name:
+                                                              _contactController
+                                                                  .contactList[
+                                                                      index]
+                                                                  .name)
+                                                      .then((value) => {
+                                                            if (value ==
+                                                                "successful")
+                                                              {
+                                                                Get.back(),
+                                                                Get.snackbar(
+                                                                  "Removed!",
+                                                                  "You've just remove a contact. Double check in Your profile.",
+                                                                  dismissDirection:
+                                                                      DismissDirection
+                                                                          .horizontal,
+                                                                  colorText:
+                                                                      Colors
+                                                                          .white,
+                                                                  snackStyle:
+                                                                      SnackStyle
+                                                                          .FLOATING,
+                                                                  barBlur: 30,
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .black45,
+                                                                  isDismissible:
+                                                                      true,
+                                                                  duration:
+                                                                      Duration(
+                                                                          seconds:
+                                                                              3),
+                                                                ),
+                                                                setState(() {
+                                                                  _contactController
+                                                                      .contactList
+                                                                      .removeAt(
+                                                                          index);
+                                                                }),
+                                                              }
+                                                            else
+                                                              {print("nah")}
+                                                          });
+                                                });
                                           },
                                           backgroundColor: Colors.red.shade400,
                                           foregroundColor: Colors.white,

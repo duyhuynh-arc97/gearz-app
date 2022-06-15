@@ -144,6 +144,35 @@ openCustomizedAlertDialog(
   );
 }
 
+openCustomizedAlertDialog2(
+    {required BuildContext context,
+    required String title,
+    required String mainText,
+    required String additionalText,
+    required String iconName,
+    String? importantText,
+    VoidCallback? okAction}) {
+  return showGeneralDialog(
+    context: context,
+    transitionDuration: Duration(milliseconds: 300),
+    transitionBuilder: (context, _animation, _secondaryAnimation, _child) {
+      return Animations.shrink(_animation, _secondaryAnimation, _child);
+    },
+    pageBuilder: (_animation, _secondaryAnimation, _child) {
+      return CustomizedAlertDialog(
+        context: context,
+        mainText: mainText,
+        additionalText: additionalText,
+        importantText: importantText,
+        title: title,
+        iconName: iconName,
+        hasCancelBtn: true,
+        okAction: okAction,
+      );
+    },
+  );
+}
+
 //Open success message dialog in reset-pass screen
 openSuccessMessageDialog(
     {required BuildContext context,

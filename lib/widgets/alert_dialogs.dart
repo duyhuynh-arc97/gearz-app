@@ -5,6 +5,8 @@ import 'package:itproject_gadget_store/controllers/app_controller.dart';
 class CustomizedAlertDialog extends StatelessWidget {
   final String mainText, additionalText, title, iconName;
   final String? importantText;
+  final bool? hasCancelBtn;
+  final VoidCallback? okAction;
   const CustomizedAlertDialog(
       {Key? key,
       required this.context,
@@ -12,7 +14,9 @@ class CustomizedAlertDialog extends StatelessWidget {
       required this.additionalText,
       this.importantText,
       required this.title,
-      required this.iconName})
+      required this.iconName,
+      this.hasCancelBtn,
+      this.okAction})
       : super(key: key);
 
   final BuildContext context;
@@ -66,14 +70,28 @@ class CustomizedAlertDialog extends StatelessWidget {
               bottom: 10 * screenScale(context),
               right: 25 * screenScale(context),
               child: TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
+                  onPressed: hasCancelBtn == true
+                      ? okAction
+                      : () => Navigator.of(context).pop(),
                   child: Text("OK",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14 * fontScale(context)))),
-            )
+            ),
+            hasCancelBtn == true
+                ? Positioned(
+                    bottom: 10 * screenScale(context),
+                    left: 25 * screenScale(context),
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text("Cancel",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14 * fontScale(context)))),
+                  )
+                : SizedBox(),
           ],
         ),
       ),
