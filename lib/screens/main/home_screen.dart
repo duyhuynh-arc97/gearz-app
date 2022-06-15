@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       .first ==
                                   "https:"
                               ? _userController.user.value.profilePic
-                              : "https://gearz-gadget.000webhostapp.com/profilepics/${_userController.user.value.profilePic}")
+                              : "https://gearz-gadget.000webhostapp.com/profile_pics/${_userController.user.value.profilePic}")
                           : null,
                     ),
                   )
